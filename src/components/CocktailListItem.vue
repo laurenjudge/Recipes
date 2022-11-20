@@ -1,10 +1,10 @@
 <template>
 <div class="cocktail-wrapper card">
     <div class="cocktail-content">
-    <h2 v-if="props.cocktail.name">{{ props.cocktail.name }}</h2>
-    <!-- <p v-if="cocktail.cocktailAddress">Address: {{ cocktail.cocktailAddress }} </p>
-    <p v-if="cocktail.cocktailPhone">Phone Number: {{ cocktail.cocktailPhone }} </p> -->
-    <router-link class="primary-link" :to="{name:'cocktail-details', params: { id: props.cocktail.id }}">More details</router-link>
+      <img class="cocktail-image" :src="props.cocktail.image" :alt="'image of ' + props.cocktail.name">
+      <h2 v-if="props.cocktail.name">{{ props.cocktail.name }}</h2>
+      <p v-if="props.cocktail.description">{{ props.cocktail.description }} </p>
+      <router-link class="primary-link" :to="{name:'cocktail-details', params: { id: props.cocktail.id }}">More details</router-link>
     </div>
 </div>
 </template>
@@ -29,5 +29,9 @@ h2 {
 .cocktail-wrapper {
     margin: 1rem 0;  
     background-color: #fff;
+}
+.cocktail-image {
+  width: 100px;
+  height:100px;
 }
 </style>

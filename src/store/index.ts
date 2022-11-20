@@ -66,13 +66,15 @@ export default createStore({
       results.forEach((doc) => {
         // Prevent duplicates
         if(!state.cocktails.some((cocktail) => cocktail.id === doc.id)) {
+          const cocktailImage = doc.data().image && doc.data().image.match(/[^/]+(jpg|png|gif|jpeg)$/) ? doc.data().image : ''
           const data = {
             name: doc.data().name, 
             id: doc.id, 
+            image: cocktailImage,
             description: doc.data().description, 
             ingredients: doc.data().ingredients, 
             instructions: doc.data().instructions, 
-            tags: doc.data().tags
+            tags: doc.data().tags,
           }
           state.cocktails.push(data);
         }

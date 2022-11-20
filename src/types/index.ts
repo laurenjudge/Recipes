@@ -14,23 +14,12 @@ export enum measurementUnit {
     liter = 'liter'
 }
 
-export interface IIngredient {
-    ingredientName: string
-    measurement: number
-    measurementUnit?: measurementUnit
-    otherMeasurementUnit?: string
-}
-
-export interface IInstruction {
-    step: number
-    instruction: string
-}
-
 export interface ICocktailItem {
     name: string
     id: string
+    image?: string
     description?: string
-    ingredients: IIngredient[]
-    instructions: IInstruction[]
+    ingredients: string[]
+    instructions: string[]
     tags?: string[]
 }
