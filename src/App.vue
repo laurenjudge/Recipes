@@ -24,7 +24,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-$primary: #01c16c;
+$primary: #2196f3;
 $secondary: #35495E;
 $background--dark: #394c61;
 $danger: #de0000;
@@ -70,10 +70,9 @@ a { text-decoration: none; }
   box-shadow: 0px 2px 1px -1px rgba(0 ,0, 0, 0.2), 
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 
     0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  border-radius: 5px;
+  border-radius: 8px;
 }
 .main-page {
-  max-width: 60%;
   margin: 0 auto;
   background: $white;
   &--dark.main-page { 

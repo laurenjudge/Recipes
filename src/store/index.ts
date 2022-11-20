@@ -11,7 +11,8 @@ export default createStore({
       isLoggedIn: false,
       userToken: null
     },
-    cocktailsLoaded: false
+    cocktailsLoaded: false,
+    currentCocktail: {} as ICocktailItem
   },
   getters: {
     user(state){
@@ -24,6 +25,14 @@ export default createStore({
     },
     SET_USERTOKEN(state, userToken) {
       state.user.userToken = userToken;
+    },
+    UPDATE_COCKTAIL(state, payload) {
+      state.cocktails = state.cocktails.filter((cocktail) => {
+        return cocktail.id !== payload
+      })
+    },
+    SET_CURRENT_COCKTAIL(state, payload) {
+      state.currentCocktail = payload
     }
   },
   actions: {
@@ -37,7 +46,7 @@ export default createStore({
       // const getAuth = auth;
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential: any) => {
-          console.log(userCredential.user)
+          context.commit("SET_LOGGED_IN", userCredential.user !== null)
           context.commit('SET_USERTOKEN', userCredential.user.uid)
         })
         .catch((error) => {
@@ -58,7 +67,6 @@ export default createStore({
       }
     },
     async getCocktails({ state }) {
-      // const db = await cocktailsDB;
       const colRef = collection(database, 'cocktails');
       const results = await getDocs(colRef);
 
@@ -81,6 +89,10 @@ export default createStore({
       });
       state.cocktailsLoaded = true;
     },
+    async updateCocktailList({ commit, dispatch }, payload) {
+      commit('updateCocktail', payload);
+      await dispatch('getCocktails');
+    }
   },
   modules: {
   }
