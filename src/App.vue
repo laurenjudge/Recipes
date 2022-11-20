@@ -1,10 +1,27 @@
 <template>
   <div id="app">
+    <Navigation/>
     <div class="container">
       <router-view/>
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import store from '@/store';
+import { onMounted } from 'vue'
+import Navigation from './components/Navigation.vue';
+
+onMounted(() => {
+  store.dispatch("getCocktails")
+  // firebase.auth().onAuthStateChanged((user) => {
+  //   this.$store.commit("updateIsLoggedIn", user);
+  //   if(user) {
+  //     this.$store.dispatch("getUser");
+  //   }
+  // })
+})
+</script>
 
 <style lang="scss">
 $primary: #01c16c;

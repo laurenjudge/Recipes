@@ -28,7 +28,7 @@ export interface IInstruction {
 
 export interface ICocktailItem {
     name: string
-    id: number
+    id: string
     description?: string
     ingredients: IIngredient[]
     instructions: IInstruction[]

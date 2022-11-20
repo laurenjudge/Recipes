@@ -4,7 +4,7 @@
     <h2 v-if="props.cocktail.name">{{ props.cocktail.name }}</h2>
     <!-- <p v-if="cocktail.cocktailAddress">Address: {{ cocktail.cocktailAddress }} </p>
     <p v-if="cocktail.cocktailPhone">Phone Number: {{ cocktail.cocktailPhone }} </p> -->
-    <!-- <router-link class="primary-link" :to="{name:'ViewCocktail', params: { id: props.cocktail.id }}">More details</router-link> -->
+    <router-link class="primary-link" :to="{name:'cocktail-details', params: { id: props.cocktail.id }}">More details</router-link>
     </div>
 </div>
 </template>

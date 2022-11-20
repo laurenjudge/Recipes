@@ -1,41 +1,17 @@
 import { createStore } from 'vuex'
 import { ICocktailItem } from '@/types'
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from '@/firebase.config'
-
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth, database } from '@/firebase.config'
+import { collection, getDocs } from "firebase/firestore";
 
 export default createStore({
   state: {
-    cocktails: [{
-      name: "this is a test",
-      id: 1,
-      description: "This is a description",
-      ingredients: [
-        {
-          ingredientName: "Rum",
-          measurement: 1,
-          otherMeasurementUnit: "shot"
-        }
-      ],
-      instructions: [
-        {
-          step: 1,
-          instruction: "put the shot of rum into the thing"
-        },
-        {
-          step: 2,
-          instruction: "put the shot of rum into the thing"
-        },
-        {
-          step: 3,
-          instruction: "put the shot of rum into the thing"
-        }
-      ]
-    }] as ICocktailItem[],
+    cocktails: [] as ICocktailItem[],
     user: {
       isLoggedIn: false,
       userToken: null
-    }
+    },
+    cocktailsLoaded: false
   },
   getters: {
     user(state){
@@ -46,7 +22,7 @@ export default createStore({
     SET_LOGGED_IN(state, value) {
       state.user.isLoggedIn = value;
     },
-    SET_USER(state, userToken) {
+    SET_USERTOKEN(state, userToken) {
       state.user.userToken = userToken;
     }
   },
@@ -60,32 +36,49 @@ export default createStore({
       // }
       // const getAuth = auth;
       signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in 
-          console.log(userCredential)
-          context.commit('SET_USER', userCredential.user)
-          // const user = userCredential.user;
+        .then((userCredential: any) => {
+          console.log(userCredential.user)
+          context.commit('SET_USERTOKEN', userCredential.user.uid)
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
         });
     },
-    // async logOut(context){
-    //   await signOut(auth)
-    //   context.commit('SET_USER', null)
-    // },
-    // async fetchUser(context ,user) {
-    //   context.commit("SET_LOGGED_IN", user !== null);
-    //   if (user) {
-    //     context.commit("SET_USER", {
-    //       displayName: user.displayName,
-    //       email: user.email
-    //     });
-    //   } else {
-    //     context.commit("SET_USER", null);
-    //   }
-    // }
+    async logOut(context){
+      await signOut(auth)
+      context.commit('SET_USERTOKEN', null)
+    },
+    async fetchUser(context ,user) {
+      context.commit("SET_LOGGED_IN", user !== null);
+      if (user) {
+        context.commit("SET_USERTOKEN", user.uid);
+      } else {
+        context.commit("SET_USER", null);
+      }
+    },
+    async getCocktails({ state }) {
+      // const db = await cocktailsDB;
+      const colRef = collection(database, 'cocktails');
+      const results = await getDocs(colRef);
+
+      console.log(results)
+      results.forEach((doc) => {
+        // Prevent duplicates
+        if(!state.cocktails.some((cocktail) => cocktail.id === doc.id)) {
+          const data = {
+            name: doc.data().name, 
+            id: doc.id, 
+            description: doc.data().description, 
+            ingredients: doc.data().ingredients, 
+            instructions: doc.data().instructions, 
+            tags: doc.data().tags
+          }
+          state.cocktails.push(data);
+        }
+      });
+      state.cocktailsLoaded = true;
+    },
   },
   modules: {
   }
