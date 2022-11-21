@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navigation/>
-    <div class="container">
+    <div class="container main-content-area">
       <router-view/>
     </div>
   </div>
@@ -24,9 +24,12 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-$primary: #2196f3;
-$secondary: #35495E;
+$primary: #42b883;
+$secondary: #35495e;
+$tertiary: #425b76;
+$accent: #a1b5d8;
 $background--dark: #394c61;
+$tertiary--light: #95A3B2;
 $danger: #de0000;
 $danger--light: #ca4b4b;
 $white: #fff;
@@ -67,11 +70,15 @@ a {
   width: 90%;
   margin: 0 auto;
 }
+.main-content-area {
+  padding-bottom: 1rem;
+}
 .flex { display: flex; }
 .items-center { align-items: center; }
 .row { display: flex; }
 .text--primary { color: $primary; }
 .text--secondary { color: $secondary; }
+.text--underline { text-decoration: underline; }
 .card {
   padding: 1rem;
   border-radius: 8px;
@@ -148,5 +155,59 @@ input {
     border-color: $primary;
     box-shadow:0 0 1px 0 $primary;
   }
-} 
+}
+
+label.custom-select {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select select {
+  display: inline-block;
+  border: 2px solid $tertiary--light;
+  padding: 4px 3px 3px 5px;
+  margin: 0;
+  font: inherit;
+  outline:none; /* remove focus ring from Webkit */
+  line-height: 1.2;
+  background: #f8f8f8;
+  
+  -webkit-appearance:none; /* remove the strong OSX influence from Webkit */
+  
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  margin-left: 0.3rem;
+}
+
+/* for Webkit's CSS-only solution */
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+  .custom-select select {
+      padding-right:30px;    
+  }
+}
+
+/* Select arrow styling */
+.custom-select:after {
+    content: "▼";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 60%;
+    line-height: 30px;
+    padding: 0 7px;
+    background: $tertiary--light;
+    color: white;
+    
+    pointer-events:none;
+    
+    -webkit-border-radius: 0 6px 6px 0;
+    -moz-border-radius: 0 6px 6px 0;
+    border-radius: 0 6px 6px 0;
+}
+
+.no-pointer-events .custom-select:after {
+    content: none;
+}
 </style>

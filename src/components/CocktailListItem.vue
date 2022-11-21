@@ -10,8 +10,12 @@
         </div>
       </div>
       <div class="cocktail-item-text">
-        <h2 v-if="props.cocktail.name">{{ props.cocktail.name }}</h2>
-        <p v-if="props.cocktail.description">{{ props.cocktail.description }} </p>
+        <h2 v-if="props.cocktail.name">
+          {{ props.cocktail.name }}
+        </h2>
+        <p v-if="props.cocktail.description">
+          {{ props.cocktail.description }}
+        </p>
       </div>
     </div>
   </router-link>
@@ -42,12 +46,6 @@ h2 {
 .inner {
   display: flex;
 }
-// .cocktail-image {
-//   width: 100px;
-//   height:100px;
-//   margin-right: 0.9rem;
-// }
-
 .img-container {
 	position: relative;
 	padding-bottom: 0;

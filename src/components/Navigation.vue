@@ -6,42 +6,13 @@
            <span class="text--secondary">Cocktail Recipes</span>
           </router-link>
         </div>
-        <div class="nav-links">
-          <ul>
-            <!-- <router-link class="nav-link" :to="{name: 'Contacts'}">All Contacts</router-link>
-            <router-link class="nav-link" :to="{name: 'NewContact'}">Add Contact</router-link>
-            <router-link class="nav-link" :to="{name: 'Login'}" v-if="!isLoggedIn">Login/Signup</router-link>
-            <p class="nav-link" @click="signOut" v-if="isLoggedIn">Sign Out</p> -->
-          </ul>
-        </div>
       </nav>
     </header>
   </template>
-  
-  <script lang="ts" setup>
-//   import firebase from "firebase/app";
-//   import "firebase/auth";
-//   export default {
-//     name: 'navigation',
-//     components: {
-//     },
-//     data() {
-//       return {
-//       }
-//     },
-//     computed: {
-//       isLoggedIn() {
-//         return this.$store.state.isLoggedIn;
-//       }
-//     },
-//     methods: {
-//       signOut() {
-//         firebase.auth().signOut();
-//         this.$router.push({name:"Login"});
-//       }
-//     }
-//   }
-  </script>
+
+<script lang="ts" setup>
+
+</script>
   
 <style lang="scss" scoped>
   header {

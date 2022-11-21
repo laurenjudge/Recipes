@@ -16,41 +16,45 @@
         </div>
         <div class="cocktail-wrapper-card">
             <div class="cocktail-content" v-if="state.currentCocktail.ingredients">
-                <h3>Ingredients:</h3>
-                    <div class="flex items-center">
-                        Serves:
-                        <label class="custom-select">
-                            <select v-model="state.numberOfServes">
-                                <option
-                                    v-for="count in 8"
-                                    :value="count"
-                                >
-                                    {{ count }} {{count === 1 ? 'glass' : 'glasses'}}
-                                </option>
-                            </select>
-                        </label>
+                <h3 class="text--underline">
+                    Ingredients:
+                </h3>
+                <div class="flex items-center dropdown-menu-row">
+                    Serves:
+                    <label class="custom-select">
+                        <select v-model="state.numberOfServes">
+                            <option
+                                v-for="count in 8"
+                                :value="count"
+                            >
+                                {{ count }} {{count === 1 ? 'glass' : 'glasses'}}
+                            </option>
+                        </select>
+                    </label>
 
-                        <label class="custom-select ml-2" style="display: none;">
-                            <select v-model="state.metricOrImperial">
-                                <option value="metric">
-                                    Metric
-                                </option>
-                                <option value="imperial">
-                                    Imperial
-                                </option>
-                            </select>
-                        </label>
-                    </div>
+                    <label class="custom-select ml-2" style="display: none;">
+                        <select v-model="state.metricOrImperial">
+                            <option value="metric">
+                                Metric
+                            </option>
+                            <option value="imperial">
+                                Imperial
+                            </option>
+                        </select>
+                    </label>
+                </div>
                 <ul>
-                    <li v-for="ingredient in state.formattedIngredients">
+                    <li v-for="ingredient in state.formattedIngredients" class="ingredients-item">
                         {{ingredient}}
                     </li>
                 </ul>
             </div>
             <div class="cocktail-content" v-if="state.currentCocktail.instructions">
-                <h3>Instructions:</h3>
+                <h3 class="text--underline cocktail-content--instructions-heading">
+                    Instructions:
+                </h3>
                 <ol>
-                    <li v-for="instruction in state.currentCocktail.instructions">
+                    <li v-for="instruction in state.currentCocktail.instructions" class="instructions-item">
                         {{instruction}}
                     </li>
                 </ol>
@@ -129,7 +133,6 @@ ol {
     padding-left: 1rem;
 }
 .cocktail-wrapper-card {
-    background: #fff;
     box-shadow: none;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
@@ -139,9 +142,13 @@ ol {
 .cocktail-content {
     font-size: 1rem;
     h3 {
-        font-weight: 400;
+        font-weight: 600;
         font-size: 1.3rem;
-        color: rgba(0,0,0,.6);
+        color: rgba(0, 0, 0, 0.8);
+    }
+    &--instructions-heading {
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
     }
 }
 .ml-2 { margin-left: 2rem; }
@@ -190,59 +197,8 @@ ol {
 	overflow: hidden;
 }
 
-// Select styles
-.custom-select 
-{
-    margin: 0 0.4rem;
-    position: relative;
-    border-radius: 5px;
-    box-shadow: 0 0 1em rgba(white,0.2), inset 0 0 1px rgba(white,0.8);
-    /* Styling the select background */
-    background-color: #e0e8ef;
-
-    select 
-    {
-        width: auto;
-        margin: 0;
-        padding: 0.5rem 1.7rem 0.5rem 1.2rem;
-        outline: none;
-        cursor: pointer;
-        border: none;
-        border-radius: 0;
-        background-color: transparent;
-        /* Styling the select text color */
-        color: rgba(0,0,0,.87);
-
-        /* removes the native down arrow */
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        text-indent: 0.01px;
-        text-overflow: '';
-      
-        &::-ms-expand 
-        {
-            display: none;
-        }
-      
-    }
-
-    &:after 
-    {
-        position: absolute;
-        top: 0.9rem;
-        right: 0.55rem;
-        /* Styling the down arrow */
-        width: 0;
-        height: 0;
-        padding: 0;
-        content: '';
-        border-left: .25em solid transparent;
-        border-right: .25em solid transparent;
-        border-top: .375em solid darken(#e0e8ef,25%);
-        pointer-events: none;
-    }
-}
-
+.dropdown-menu-row { margin: 0.5rem 0; }
+.instructions-item { margin-bottom: 0.8rem;}
 @media only screen and (max-width: 600px) {
     .cocktail-content h3 { font-size: 1.2rem;}
     .description { font-size: 0.8rem; }
