@@ -22,7 +22,11 @@ npm run serve
 
 ### Compiles and minifies for production
 ```
-npm run build
+1. firebase init
+2. sign into firebase
+3. install firebase hosting (set default folder to 'dist')
+4. npm run build
+5. firebase deploy
 
 // Todo: add instructions for deploying to firebase
 ```
