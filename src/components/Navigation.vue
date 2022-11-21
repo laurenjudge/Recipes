@@ -1,6 +1,6 @@
 <template>
     <header>
-      <nav class="container">
+      <nav>
         <div class="brading">
           <router-link class="branding-link text--primary" :to="{name: 'home'}">
            <span class="text--secondary">Cocktail Recipes</span>
@@ -43,7 +43,7 @@
 //   }
   </script>
   
-  <style lang="scss" scoped>
+<style lang="scss" scoped>
   header {
     background-color: #fff;
     padding: 1rem 0;
@@ -54,6 +54,7 @@
     display: flex; 
     align-items: center;
     justify-content: space-between;
+    padding: 0 2rem;
   }
     
   .nav-link {
@@ -71,4 +72,9 @@
     font-size: 1.8rem;
     font-weight: 500;
   }
-  </style>
+
+  @media only screen and (max-width: 600px) {
+        .branding-link { font-size: 1.4rem;}
+        nav { padding: 0 1.2rem }
+    }
+</style>

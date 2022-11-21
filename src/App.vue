@@ -40,6 +40,7 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   line-height: 1.3;
+  color: rgba(0,0,0,.87);
 }
 #app {
   background-image: url("./assets/images/background-image.jpg");
@@ -47,7 +48,10 @@ body {
   background-size: cover;
   min-height: 100vh;
 }
-a { text-decoration: none; }
+a {
+  text-decoration: none;
+  color: inherit;
+}
 .primary-link {
   margin-top: 0.5rem;
   display: inline-block;
@@ -59,9 +63,12 @@ a { text-decoration: none; }
   }
 }
 .container {
-  max-width: 90%;
+  max-width: 600px;
+  width: 90%;
   margin: 0 auto;
 }
+.flex { display: flex; }
+.items-center { align-items: center; }
 .row { display: flex; }
 .text--primary { color: $primary; }
 .text--secondary { color: $secondary; }
@@ -85,6 +92,11 @@ a { text-decoration: none; }
 .main-heading {
   margin: 0.5rem 0 1.5rem;
   text-align: center;
+}
+@media only screen and (max-width: 600px) {
+    .main-heading { font-size: 1.8rem; }
+    body { font-size: 0.9rem; }
+    .row { flex-direction: column; }
 }
 .btn {
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0,.14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
@@ -135,6 +147,5 @@ input {
     border-color: $primary;
     box-shadow:0 0 1px 0 $primary;
   }
-}
-  
+} 
 </style>

@@ -2,7 +2,6 @@ export enum measurementUnit {
     tablespoon = 'tbsp',
     teaspoon = 'tsp',
     ounce = 'oz',
-    fluidOunce = 'fl. oz',
     cup = 'cup',
     quart = 'qt',
     pint = 'pint',
@@ -22,4 +21,5 @@ export interface ICocktailItem {
     ingredients: string[]
     instructions: string[]
     tags?: string[]
+    numberOfServings: number
 }

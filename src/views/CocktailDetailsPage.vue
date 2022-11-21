@@ -15,26 +15,56 @@
             </h1>
         </div>
         <div class="cocktail-wrapper card">
-          <div class="cocktail-content">
-            <span>Ingredients:</span>
-            <p class="cocktail-details" v-if="state.currentCocktail[0].ingredients">
-              {{ state.currentCocktail[0].ingredients }} 
-            </p>
-            <span>Instructions:</span>
-            <p class="cocktail-details" v-if="state.currentCocktail[0].instructions">
-              {{ state.currentCocktail[0].instructions }} 
-            </p>
-          </div>
-          <div class="btn-group">
-            <button v-if="store.state.user.isLoggedIn" class="btn btn--danger" @click="onDelete">Delete</button>
-            <button v-if="store.state.user.isLoggedIn" class="btn btn--primary" @click="editCocktail">Edit</button>
-          </div>
+            <div class="cocktail-content" v-if="state.currentCocktail[0].ingredients">
+                <h3>Ingredients:</h3>
+                    <div class="flex items-center">
+                        Serves:
+                        <label class="custom-select">
+                            <select v-model="state.numberOfServes">
+                                <option
+                                    v-for="count in 8"
+                                    :value="count"
+                                >
+                                    {{ count }} {{count === 1 ? 'glass' : 'glasses'}}
+                                </option>
+                            </select>
+                        </label>
+
+                        <label class="custom-select ml-2" style="display: none;">
+                            <select v-model="state.metricOrImperial">
+                                <option value="metric">
+                                    Metric
+                                </option>
+                                <option value="imperial">
+                                    Imperial
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+                <ul>
+                    <li v-for="ingredient in state.formattedIngredients">
+                        {{ingredient}}
+                    </li>
+                </ul>
+            </div>
+            <div class="cocktail-content" v-if="state.currentCocktail[0].instructions">
+                <h3>Instructions:</h3>
+                <ol>
+                    <li v-for="instruction in state.currentCocktail[0].instructions">
+                        {{instruction}}
+                    </li>
+                </ol>
+            </div>
+            <div class="btn-group">
+                <button v-if="store.state.user.isLoggedIn" class="btn btn--danger" @click="onDelete">Delete</button>
+                <button v-if="store.state.user.isLoggedIn" class="btn btn--primary" @click="editCocktail">Edit</button>
+            </div>
         </div>
     </div>
   </template>
   
 <script lang="ts" setup>
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import store from '@/store';
 import { ICocktailItem } from '@/types';
@@ -45,17 +75,43 @@ const router = useRouter()
 
 const state = reactive({
     isLoading: true,
-    currentCocktail: [] as ICocktailItem[]
+    currentCocktail: [] as ICocktailItem[],
+    numberOfServes: 2,
+    formattedIngredients: [] as string[],
+    metricOrImperial: 'metric'
 })
+
+const mapIngredients = () => {
+    const ingredients = state.currentCocktail[0].ingredients
+        ingredients.forEach((e) =>{
+        const mappedIngredients = ingredients.map((e) => {
+            const findIngredientAmount = e.match(/((?<=\[)(.*)(?=\]))/g) // numbers that should be calculated are escaped like: []
+            const FindIngredientUnits = e.match(/((?<=\\)(.*)(?=\\))/g) // measurments such as oz are escaped like: \oz\
+
+            if (findIngredientAmount) {
+                const convertAmount = parseFloat(findIngredientAmount) * state.numberOfServes
+                const formattedAmount = e.replace(/((?<=\[)(.*)(?=\]))/g, convertAmount).replace("[", '').replace("]", '')
+                return formattedAmount
+            } else {
+                return e
+            }
+        })
+        state.formattedIngredients = mappedIngredients
+    })
+}
 
 onMounted(async () => {
     await store.dispatch('getCocktails')
     state.currentCocktail = await store.state.cocktails.filter((cocktail: ICocktailItem) => {
         return cocktail.id === route.params.id;
     })
+    mapIngredients()
     state.isLoading = false
 })
 
+watch(() => state.numberOfServes, () => {
+    mapIngredients()
+});
 
 const onDelete = () => {
     // state.isLoading = true
@@ -73,14 +129,16 @@ const editCocktail = () => {
 .cocktail-wrapper {
     &.card {background: #fff;}
 }
+.main-heading { text-align: left; }
 .cocktail-content {
-    font-size: 1.2rem;
-    text-align: center;
-    span {
-    font-weight: bold;
-    display: block;
+    font-size: 1rem;
+    h3 {
+        font-weight: 400;
+        font-size: 1.3rem;
+        color: rgba(0,0,0,.6);
     }
 }
+.ml-2 { margin-left: 2rem; }
 .description {
     font-size: 0.9rem;
     font-weight: 400;
@@ -124,5 +182,69 @@ const editCocktail = () => {
 	height: 100%;
 	position: absolute;
 	overflow: hidden;
+}
+
+// Select styles
+.custom-select 
+{
+    margin: 0 0.4rem;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0 0 1em rgba(white,0.2), inset 0 0 1px rgba(white,0.8);
+    /* Styling the select background */
+    background-color: #e0e8ef;
+
+    select 
+    {
+        width: auto;
+        margin: 0;
+        padding: 0.5rem 1.7rem 0.5rem 1.2rem;
+        outline: none;
+        cursor: pointer;
+        border: none;
+        border-radius: 0;
+        background-color: transparent;
+        /* Styling the select text color */
+        color: rgba(0,0,0,.87);
+
+        /* removes the native down arrow */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 0.01px;
+        text-overflow: '';
+      
+        &::-ms-expand 
+        {
+            display: none;
+        }
+      
+    }
+
+    &:after 
+    {
+        position: absolute;
+        top: 0.9rem;
+        right: 0.55rem;
+        /* Styling the down arrow */
+        width: 0;
+        height: 0;
+        padding: 0;
+        content: '';
+        border-left: .25em solid transparent;
+        border-right: .25em solid transparent;
+        border-top: .375em solid darken(#e0e8ef,25%);
+        pointer-events: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .cocktail-content h3 { font-size: 1.2rem;}
+    .description { font-size: 0.8rem; }
+    .img-container {
+        width: 100%;
+        height: 210px;
+        margin-right: 0;
+    }
+    .img-container-inner { padding-bottom: 90%; }
 }
 </style>

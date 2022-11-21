@@ -83,6 +83,7 @@ export default createStore({
             ingredients: doc.data().ingredients, 
             instructions: doc.data().instructions, 
             tags: doc.data().tags,
+            numberOfServings: doc.data().numberOfServings
           }
           state.cocktails.push(data);
         }

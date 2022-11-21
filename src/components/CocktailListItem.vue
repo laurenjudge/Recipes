@@ -1,12 +1,20 @@
 <template>
-<div class="cocktail-wrapper card">
-    <div class="cocktail-content">
-      <img class="cocktail-image" :src="props.cocktail.image" :alt="'image of ' + props.cocktail.name">
-      <h2 v-if="props.cocktail.name">{{ props.cocktail.name }}</h2>
-      <p v-if="props.cocktail.description">{{ props.cocktail.description }} </p>
-      <router-link class="primary-link" :to="{name:'cocktail-details', params: { id: props.cocktail.id }}">More details</router-link>
+  <router-link
+    class="cocktail-list-item card"
+    :to="{name:'cocktail-details', params: { id: props.cocktail.id }}"
+  >
+    <div class="inner">
+      <div class="img-container">
+        <div class="img-container-inner">
+            <img class="img" :src="props.cocktail.image" :alt="'image of ' + props.cocktail.name">
+        </div>
+      </div>
+      <div class="cocktail-item-text">
+        <h2 v-if="props.cocktail.name">{{ props.cocktail.name }}</h2>
+        <p v-if="props.cocktail.description">{{ props.cocktail.description }} </p>
+      </div>
     </div>
-</div>
+  </router-link>
 </template>
 
 <script lang="ts" setup>
@@ -26,12 +34,49 @@ const props = withDefaults(
 h2 {
     margin-bottom: 0.2rem;
 }
-.cocktail-wrapper {
-    margin: 1rem 0;  
-    background-color: #fff;
+.cocktail-list-item {
+  margin: 1rem 0;  
+  background-color: #fff;
+  display: block;
 }
-.cocktail-image {
+.inner {
+  display: flex;
+}
+// .cocktail-image {
+//   width: 100px;
+//   height:100px;
+//   margin-right: 0.9rem;
+// }
+
+.img-container {
+	position: relative;
+	padding-bottom: 0;
+	overflow: hidden;
   width: 100px;
-  height:100px;
+  margin-right: 0.9rem;
+  border-radius: 5px;
+}
+.img-container-inner {
+	padding-bottom: 100%; //set as you like
+	width: 100%;
+  position: relative;
+}
+.img {
+	object-fit: cover;
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	overflow: hidden;
+}
+
+.cocktail-item-text {
+  h2 {
+    font-size: 1.3rem;
+  }
+  p {
+    color: rgba(0,0,0,.6);
+    font-size: 0.9rem;
+  }
 }
 </style>
