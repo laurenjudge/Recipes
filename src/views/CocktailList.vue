@@ -1,10 +1,7 @@
 
 <template>
     <div>
-      <div class="main-page main-page--dark card">
-        <h1 class="main-heading">Cocktails</h1>
-        <CocktailListItem :cocktail="cocktail" v-for="(cocktail, index) in cocktails" :key="index" />
-      </div>
+      <CocktailListItem :cocktail="cocktail" v-for="(cocktail, index) in cocktails" :key="index" />
     </div>
 </template>
 

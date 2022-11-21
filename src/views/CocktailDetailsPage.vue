@@ -1,21 +1,21 @@
 <template>
     <Loading v-if="state.isLoading"/>
-    <div class="main-page main-page--dark card" v-else-if="state.currentCocktail.length > 0">
+    <div class="card" v-else-if="state.currentCocktail">
         <div class="row header-container">
             <div class="img-container">
                 <div class="img-container-inner">
-                    <img class="img" :src="state.currentCocktail[0].image" :alt="'image of ' + state.currentCocktail[0].name">
+                    <img class="img" :src="state.currentCocktail.image" :alt="'image of ' + state.currentCocktail.name">
                 </div>
             </div>
             <h1 class="main-heading">
-                {{state.currentCocktail[0].name}}
-                <p v-if="state.currentCocktail[0].description" class="description">
-                    {{ state.currentCocktail[0].description }}
+                {{state.currentCocktail.name}}
+                <p v-if="state.currentCocktail.description" class="description">
+                    {{ state.currentCocktail.description }}
                 </p>
             </h1>
         </div>
-        <div class="cocktail-wrapper card">
-            <div class="cocktail-content" v-if="state.currentCocktail[0].ingredients">
+        <div class="cocktail-wrapper-card">
+            <div class="cocktail-content" v-if="state.currentCocktail.ingredients">
                 <h3>Ingredients:</h3>
                     <div class="flex items-center">
                         Serves:
@@ -47,10 +47,10 @@
                     </li>
                 </ul>
             </div>
-            <div class="cocktail-content" v-if="state.currentCocktail[0].instructions">
+            <div class="cocktail-content" v-if="state.currentCocktail.instructions">
                 <h3>Instructions:</h3>
                 <ol>
-                    <li v-for="instruction in state.currentCocktail[0].instructions">
+                    <li v-for="instruction in state.currentCocktail.instructions">
                         {{instruction}}
                     </li>
                 </ol>
@@ -75,14 +75,14 @@ const router = useRouter()
 
 const state = reactive({
     isLoading: true,
-    currentCocktail: [] as ICocktailItem[],
+    currentCocktail: {} as ICocktailItem,
     numberOfServes: 2,
     formattedIngredients: [] as string[],
     metricOrImperial: 'metric'
 })
 
 const mapIngredients = () => {
-    const ingredients = state.currentCocktail[0].ingredients
+    const ingredients = state.currentCocktail.ingredients
         ingredients.forEach((e) =>{
         const mappedIngredients = ingredients.map((e) => {
             const findIngredientAmount = e.match(/((?<=\[)(.*)(?=\]))/g) // numbers that should be calculated are escaped like: []
@@ -101,10 +101,8 @@ const mapIngredients = () => {
 }
 
 onMounted(async () => {
-    await store.dispatch('getCocktails')
-    state.currentCocktail = await store.state.cocktails.filter((cocktail: ICocktailItem) => {
-        return cocktail.id === route.params.id;
-    })
+    await store.dispatch('getCocktailById', route.params.id)
+    state.currentCocktail = store.state.currentCocktail
     mapIngredients()
     state.isLoading = false
 })
@@ -115,19 +113,27 @@ watch(() => state.numberOfServes, () => {
 
 const onDelete = () => {
     // state.isLoading = true
-    // store.dispatch("deletecocktail", state.currentCocktail[0].id);
+    // store.dispatch("deletecocktail", state.currentCocktail.id);
     // router.push({name:"home"});
     // state.isLoading = false
 }
 
 const editCocktail = () => {
-    // router.push({ name:"Editcocktail", params: { id: state.currentCocktail[0].id } });
+    // router.push({ name:"Editcocktail", params: { id: state.currentCocktail.id } });
 }
 </script>
   
 <style lang="scss" scoped>
-.cocktail-wrapper {
-    &.card {background: #fff;}
+ul,
+ol {
+    padding-left: 1rem;
+}
+.cocktail-wrapper-card {
+    background: #fff;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 0.5rem;
 }
 .main-heading { text-align: left; }
 .cocktail-content {

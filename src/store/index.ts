@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import { ICocktailItem } from '@/types'
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth, database } from '@/firebase.config'
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default createStore({
   state: {
@@ -37,13 +37,6 @@ export default createStore({
   },
   actions: {
     async logIn(context, { email, password }){
-      // const response = await auth.signInWithEmailAndPassword(email, password)
-      // if (response) {
-      //     context.commit('SET_USER', response.user)
-      // } else {
-      //     throw new Error('login failed')
-      // }
-      // const getAuth = auth;
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential: any) => {
           context.commit("SET_LOGGED_IN", userCredential.user !== null)
@@ -70,7 +63,6 @@ export default createStore({
       const colRef = collection(database, 'cocktails');
       const results = await getDocs(colRef);
 
-      console.log(results)
       results.forEach((doc) => {
         // Prevent duplicates
         if(!state.cocktails.some((cocktail) => cocktail.id === doc.id)) {
@@ -82,17 +74,25 @@ export default createStore({
             description: doc.data().description, 
             ingredients: doc.data().ingredients, 
             instructions: doc.data().instructions, 
-            tags: doc.data().tags,
-            numberOfServings: doc.data().numberOfServings
+            tags: doc.data().tags
           }
           state.cocktails.push(data);
         }
       });
       state.cocktailsLoaded = true;
     },
-    async updateCocktailList({ commit, dispatch }, payload) {
-      commit('updateCocktail', payload);
+    async updateCocktailList({ dispatch }) {
       await dispatch('getCocktails');
+    },
+    async getCocktailById({ commit }, id) {
+      const db = getFirestore();
+      const docRef = doc(db, "cocktails", id);
+      try {
+        const docSnap = await getDoc(docRef);
+        commit('SET_CURRENT_COCKTAIL', docSnap.data());
+      } catch(error) {
+          console.log(error)
+      }
     }
   },
   modules: {

@@ -21,5 +21,4 @@ export interface ICocktailItem {
     ingredients: string[]
     instructions: string[]
     tags?: string[]
-    numberOfServings: number
 }

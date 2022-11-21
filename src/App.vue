@@ -74,10 +74,11 @@ a {
 .text--secondary { color: $secondary; }
 .card {
   padding: 1rem;
-  box-shadow: 0px 2px 1px -1px rgba(0 ,0, 0, 0.2), 
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 
-    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   border-radius: 8px;
+  background: #ffffffcc;
+  backdrop-filter: blur(2px);
+  -webkit-box-shadow: 5px 5px 15px 5px rgb(0 0 0 / 25%);
+  box-shadow: 5px 5px 15px 5px rgb(0 0 0 / 25%);
 }
 .main-page {
   margin: 0 auto;
