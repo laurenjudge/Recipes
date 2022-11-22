@@ -52,8 +52,8 @@ body {
   min-height: 100vh;
 }
 .background-filter {
-  min-height: 100vh;
-  background-color: #34343466;
+  // min-height: 100vh;
+  // background-color: #34343466;
 }
 a {
   text-decoration: none;

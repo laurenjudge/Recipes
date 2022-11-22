@@ -124,6 +124,10 @@ export default createStore({
       } catch(error) {
           console.log(error)
       }
+    },
+    resetCocktailSearchState({state}) {
+      //change this once dataset gets bigger
+      state.cocktails = state.allCocktails
     }
   },
   modules: {

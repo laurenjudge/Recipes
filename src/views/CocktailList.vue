@@ -1,6 +1,6 @@
 
 <template>
-   <div class="search-bar-container container">
+   <div class="search-bar-container">
       <Multiselect
         v-model="multiselectSearchValue"
         mode="tags"
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import store from '@/store';
 import CocktailListItem from '@/components/CocktailListItem.vue';
 import Multiselect from '@vueform/multiselect'
@@ -31,6 +31,10 @@ import Multiselect from '@vueform/multiselect'
 const cocktails = computed(() => store.state.cocktails)
 
 const isLoading = computed(() => store.state.cocktailsIsLoading)
+
+onMounted(() => {
+  store.dispatch('resetCocktailSearchState')
+})
 
 const multiselectSearchValue = null
 const multiselectSearchOptions = [
@@ -66,13 +70,33 @@ $danger--light: #ca4b4b;
 $white: #fff;
 .search-bar-container {
   padding-bottom: 2rem;
+  padding-top: 2rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  // backdrop-filter: blur(2px); //messes up stacking order (figure out later)
+  box-shadow: 5px 5px 15px 5px rgb(0 0 0 / 25%);
 
+  :deep(.multiselect) {
+    border-color: $tertiary
+  }
+  :deep(.multiselect-caret) {
+    background-color: $tertiary;
+  }
+  :deep(.multiselect-tag) {
+    background-color: $accent;
+  }
+  :deep(.multiselect-caret, .multiselect-clear-icon) {
+    background-color: $tertiary--light;
+  }
   :deep(.multiselect-tags-search) {
     height: 100%;
     margin: 0;
   }
+  :deep(.multiselect.is-active) {
+    box-shadow: 0px 0px 5px 0px #95A3B2;
+  }
   :deep(.multiselect) {
     max-width: 600px;
+    width: 90%;
   }
 }
 </style>
