@@ -42,7 +42,7 @@ h2 {
 }
 .cocktail-list-item {
   margin: 1rem 0;  
-  background-color: #fff;
+  // background-color: #fff;
   display: block;
 }
 .inner {

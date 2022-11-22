@@ -1,5 +1,7 @@
 <template>
-    <Loading v-if="state.isLoading"/>
+    <div class="loading-container" v-if="state.isLoading" style="margin-top: 30%;">
+        <div class="lds-dual-ring"></div>
+    </div>
     <div class="card container" v-else-if="state.currentCocktail">
         <div class="row header-container">
             <div class="img-container">
