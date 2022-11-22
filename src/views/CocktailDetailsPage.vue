@@ -9,9 +9,11 @@
             </div>
             <h1 class="main-heading">
                 {{state.currentCocktail.name}}
-                <p v-if="state.currentCocktail.description" class="description">
-                    {{ state.currentCocktail.description }}
-                </p>
+                <div class="flex description" v-if="state.currentCocktail.tags && state.currentCocktail.tags?.length > 0">
+                    <p v-for="tag, i in state.currentCocktail.tags">
+                        <span v-if="i > 0" class="pill-span">|</span>{{ tag }}
+                    </p>
+                </div>
             </h1>
         </div>
         <div class="cocktail-wrapper-card">
@@ -157,6 +159,9 @@ ol {
     font-weight: 400;
     text-align: left;
     margin-top: 0.5rem;
+}
+.pill-span {
+  padding: 0 0.3rem;
 }
 .cocktail-details {
     margin-bottom: 1rem;

@@ -45,7 +45,7 @@ const multiselectSearchOptions = [
 ]
 
 const handleSearchChange = (selectedTags: string[]) =>{
-  console.log(selectedTags)
+  store.dispatch('searchCocktailsByTag', selectedTags)
 }
 </script>
 

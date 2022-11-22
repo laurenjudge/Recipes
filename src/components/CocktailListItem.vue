@@ -13,9 +13,11 @@
         <h2 v-if="props.cocktail.name">
           {{ props.cocktail.name }}
         </h2>
-        <p v-if="props.cocktail.description">
-          {{ props.cocktail.description }}
-        </p>
+        <div class="flex" v-if="props.cocktail.tags && props.cocktail.tags?.length > 0">
+          <p v-for="tag, i in props.cocktail.tags">
+            <span v-if="i > 0" class="pill-span">|</span>{{ tag }}
+          </p>
+        </div>
       </div>
     </div>
   </router-link>
@@ -76,5 +78,8 @@ h2 {
     color: rgba(0,0,0,.6);
     font-size: 0.9rem;
   }
+}
+.pill-span {
+  padding: 0 0.3rem;
 }
 </style>

@@ -7,12 +7,13 @@ import { collection, getDocs, getFirestore, doc, getDoc, query, where } from "fi
 export default createStore({
   state: {
     cocktails: [] as ICocktailItem[],
+    allCocktails: [] as ICocktailItem[],
     user: {
       isLoggedIn: false,
       userToken: null
     },
     cocktailsIsLoading: false,
-    currentCocktail: {} as ICocktailItem
+    currentCocktail: {} as ICocktailItem,
   },
   getters: {
     user(state){
@@ -66,7 +67,7 @@ export default createStore({
 
       results.forEach((doc) => {
         // Prevent duplicates
-        if(!state.cocktails.some((cocktail) => cocktail.id === doc.id)) {
+        if(!state.allCocktails.some((cocktail) => cocktail.id === doc.id)) {
           const cocktailImage = doc.data().image && doc.data().image.match(/[^/]+(jpg|png|gif|jpeg)$/) ? doc.data().image : ''
           const data = {
             name: doc.data().name, 
@@ -77,13 +78,42 @@ export default createStore({
             instructions: doc.data().instructions, 
             tags: doc.data().tags
           }
-          state.cocktails.push(data);
+          state.allCocktails.push(data);
         }
       });
+      state.cocktails = state.allCocktails
       state.cocktailsIsLoading = false;
     },
-    async updateCocktailList({ dispatch }) {
-      await dispatch('getCocktails');
+    async searchCocktailsByTag({ state }, tags: string[]) {
+      state.cocktailsIsLoading = true;
+  
+      let matchedCocktails = [] as ICocktailItem[]
+
+      if (tags.length === 0) {
+        state.cocktails = state.allCocktails;
+        state.cocktailsIsLoading = false;
+        return
+      }
+
+      state.allCocktails.forEach((e) => {
+        const containsAll = tags.every(value => {
+          return e.tags?.includes(value);
+        });
+        if (!containsAll) {
+          return
+        }
+        matchedCocktails.push(e)
+      })
+      state.cocktails = matchedCocktails;
+      state.cocktailsIsLoading = false;
+
+      //When dataset gets bigger, query the database like this:
+      // const cocktailsRef = collection(database, 'cocktails');
+      // const results = query(cocktailsRef, where('tags', 'array-contains', tags));
+      // const querySnapshot = await getDocs(results);
+      // querySnapshot.forEach((doc) => {
+        //map in here
+      // })
     },
     async getCocktailById({ commit }, id) {
       const db = getFirestore();
