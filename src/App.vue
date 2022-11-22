@@ -78,6 +78,7 @@ a {
   padding-bottom: 2rem;
 }
 .flex { display: flex; }
+.flex-wrap { flex-wrap: wrap; }
 .items-center { align-items: center; }
 .row { display: flex; }
 .text--primary { color: $primary; }

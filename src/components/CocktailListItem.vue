@@ -13,9 +13,9 @@
         <h2 v-if="props.cocktail.name">
           {{ props.cocktail.name }}
         </h2>
-        <div class="flex" v-if="props.cocktail.tags && props.cocktail.tags?.length > 0">
+        <div class="flex flex-wrap" v-if="props.cocktail.tags && props.cocktail.tags?.length > 0">
           <p v-for="tag, i in props.cocktail.tags">
-            <span v-if="i > 0" class="pill-span">|</span>{{ tag }}
+            {{ tag }} <span v-if="i + 1 < props.cocktail.tags.length" class="pill-span">|</span>
           </p>
         </div>
       </div>

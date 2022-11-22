@@ -9,9 +9,9 @@
             </div>
             <h1 class="main-heading">
                 {{state.currentCocktail.name}}
-                <div class="flex description" v-if="state.currentCocktail.tags && state.currentCocktail.tags?.length > 0">
+                <div class="flex flex-wrap description" v-if="state.currentCocktail.tags && state.currentCocktail.tags?.length > 0">
                     <p v-for="tag, i in state.currentCocktail.tags">
-                        <span v-if="i > 0" class="pill-span">|</span>{{ tag }}
+                        {{ tag }} <span v-if="i + 1 < state.currentCocktail.tags.length" class="pill-span">|</span>
                     </p>
                 </div>
             </h1>
