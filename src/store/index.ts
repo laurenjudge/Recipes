@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import { ICocktailItem } from '@/types'
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth, database } from '@/firebase.config'
-import { collection, getDocs, getFirestore, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, getFirestore, doc, getDoc, query, where } from "firebase/firestore";
 
 export default createStore({
   state: {
@@ -11,7 +11,7 @@ export default createStore({
       isLoggedIn: false,
       userToken: null
     },
-    cocktailsLoaded: false,
+    cocktailsIsLoading: false,
     currentCocktail: {} as ICocktailItem
   },
   getters: {
@@ -60,6 +60,7 @@ export default createStore({
       }
     },
     async getCocktails({ state }) {
+      state.cocktailsIsLoading = true;
       const colRef = collection(database, 'cocktails');
       const results = await getDocs(colRef);
 
@@ -79,7 +80,7 @@ export default createStore({
           state.cocktails.push(data);
         }
       });
-      state.cocktailsLoaded = true;
+      state.cocktailsIsLoading = false;
     },
     async updateCocktailList({ dispatch }) {
       await dispatch('getCocktails');

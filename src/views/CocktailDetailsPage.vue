@@ -1,6 +1,6 @@
 <template>
     <Loading v-if="state.isLoading"/>
-    <div class="card" v-else-if="state.currentCocktail">
+    <div class="card container" v-else-if="state.currentCocktail">
         <div class="row header-container">
             <div class="img-container">
                 <div class="img-container-inner">
@@ -59,10 +59,10 @@
                     </li>
                 </ol>
             </div>
-            <div class="btn-group">
+            <!-- <div class="btn-group">
                 <button v-if="store.state.user.isLoggedIn" class="btn btn--danger" @click="onDelete">Delete</button>
                 <button v-if="store.state.user.isLoggedIn" class="btn btn--primary" @click="editCocktail">Edit</button>
-            </div>
+            </div> -->
         </div>
     </div>
   </template>

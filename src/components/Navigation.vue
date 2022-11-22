@@ -3,7 +3,7 @@
       <nav>
         <div class="brading">
           <router-link class="branding-link text--primary" :to="{name: 'home'}">
-           <span class="text--secondary">Cocktail Recipes</span>
+           <span class="text--white">Cocktail Recipes</span>
           </router-link>
         </div>
       </nav>
@@ -15,11 +15,11 @@
 </script>
   
 <style lang="scss" scoped>
+$tertiary: #425b76;
   header {
-    background-color: #fff;
+    background-color: $tertiary;
     padding: 1rem 0;
     box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
-    margin-bottom: 2rem;
   }
   nav {
     display: flex; 
@@ -29,7 +29,7 @@
   }
     
   .nav-link {
-    color: #555;
+    color: #fff;
     margin: 0 0.5rem;
     padding: 0.2rem 0;
     display: inline-block;

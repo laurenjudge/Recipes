@@ -1,5 +1,5 @@
 <template>
-  <div class="card main-page">
+  <div class="card main-page container">
     <Loading v-if="state.isLoading"/>
     <form action="" class="form">
       <h1 class="main-heading">Login</h1>

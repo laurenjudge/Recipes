@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div class="background-filter">
     <Navigation/>
-    <div class="container main-content-area">
+    <div class="main-content-area">
       <router-view/>
     </div>
   </div>
@@ -51,6 +51,10 @@ body {
   background-size: cover;
   min-height: 100vh;
 }
+.background-filter {
+  min-height: 100vh;
+  background-color: #34343466;
+}
 a {
   text-decoration: none;
   color: inherit;
@@ -68,16 +72,17 @@ a {
 .container {
   max-width: 600px;
   width: 90%;
-  margin: 0 auto;
+  margin: 2rem auto 0 auto;
 }
 .main-content-area {
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
 }
 .flex { display: flex; }
 .items-center { align-items: center; }
 .row { display: flex; }
 .text--primary { color: $primary; }
 .text--secondary { color: $secondary; }
+.text--white { color: $white; }
 .text--underline { text-decoration: underline; }
 .card {
   padding: 1rem;
