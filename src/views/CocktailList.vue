@@ -92,7 +92,7 @@ $white: #fff;
     margin: 0;
   }
   :deep(.multiselect.is-active) {
-    box-shadow: 0px 0px 5px 0px #95A3B2;
+    box-shadow: 0px 0px 5px 0px $tertiary--light;
   }
   :deep(.multiselect) {
     max-width: 600px;

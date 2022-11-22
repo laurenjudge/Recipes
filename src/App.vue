@@ -115,7 +115,7 @@ a {
 .btn {
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0,.14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
   border: none;
-  padding: 0.8rem 1rem;
+  padding: 0.5rem 1rem;
   align-self: flex-end;
   border-radius: 3px;
   font-weight: bold;
@@ -123,7 +123,13 @@ a {
     cursor: pointer;
   }
   &--primary { 
-    background-color: $primary; 
+    background-color: $secondary;
+    color: #fff;
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: lighten($secondary, 10%);
+    }
   }
   &--danger { 
     background-color: $danger--light; 
@@ -150,7 +156,7 @@ a {
 }
 input {
     width:100%;
-    border:2px solid #aaa;
+    border:1px solid $tertiary;
     border-radius:4px;
     margin:8px 0;
     outline:none;
@@ -158,8 +164,7 @@ input {
     box-sizing:border-box;
     transition:.3s;
     &:focus{
-    border-color: $primary;
-    box-shadow:0 0 1px 0 $primary;
+      box-shadow: 0px 0px 5px 0px $tertiary--light;
   }
 }
 
