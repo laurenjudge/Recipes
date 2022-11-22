@@ -154,7 +154,7 @@ a {
     margin: 1rem 0;
   }
 }
-input {
+.form__text-input {
     width:100%;
     border:1px solid $tertiary;
     border-radius:4px;

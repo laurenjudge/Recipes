@@ -78,13 +78,13 @@ $white: #fff;
   :deep(.multiselect) {
     border-color: $tertiary
   }
-  :deep(.multiselect-caret) {
+  :deep(.multiselect-caret.multiselect-caret) {
     background-color: $tertiary;
   }
   :deep(.multiselect-tag) {
     background-color: $accent;
   }
-  :deep(.multiselect-caret, .multiselect-clear-icon) {
+  :deep(.multiselect-clear-icon.multiselect-clear-icon) {
     background-color: $tertiary--light;
   }
   :deep(.multiselect-tags-search) {
