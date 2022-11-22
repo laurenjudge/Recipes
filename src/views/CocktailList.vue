@@ -34,7 +34,6 @@ const isLoading = computed(() => store.state.cocktailsIsLoading)
 
 const multiselectSearchValue = null
 const multiselectSearchOptions = [
-  'cuban peach',
   'dark rum',
   'gin',
   'peach schnapps',
@@ -42,6 +41,11 @@ const multiselectSearchOptions = [
   'vodka',
   'whiskey',
   'white rum',
+  'simple syrup',
+  'oranges',
+  'lime',
+  'peaches',
+  'strawberries',
 ]
 
 const handleSearchChange = (selectedTags: string[]) =>{
