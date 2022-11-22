@@ -89,7 +89,7 @@ a {
   padding: 1rem;
   border-radius: 8px;
   background: #ffffffcc;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(8px);
   -webkit-box-shadow: 5px 5px 15px 5px rgb(0 0 0 / 25%);
   box-shadow: 5px 5px 15px 5px rgb(0 0 0 / 25%);
 }
@@ -232,8 +232,8 @@ label.custom-select {
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
+  border: 6px solid $background--dark;
+  border-color: $background--dark transparent $background--dark transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 @keyframes lds-dual-ring {
