@@ -92,14 +92,15 @@ const mapIngredients = () => {
     const ingredients = state.currentCocktail.ingredients
         ingredients.forEach((e) =>{
         const mappedIngredients = ingredients.map((e) => {
-            const findIngredientAmount = e.match(/((?<=\[)(.*)(?=\]))/g) // numbers that should be calculated are escaped like: []
+            const findIngredientAmount: RegExpMatchArray | null = e.match(/((?<=\[)(.*)(?=\]))/g) // numbers that should be calculated are escaped like: []
             //Todo: convert recipes from imperial to metric
             const FindIngredientUnits = e.match(/((?<=\\)(.*)(?=\\))/g) // measurments such as oz are escaped like: \oz\
 
             if (findIngredientAmount) {
-                const convertAmount = parseFloat(findIngredientAmount) * state.numberOfServes
+                const ingredientAmount: number = parseFloat(findIngredientAmount[0]);
+                const convertAmount = ingredientAmount * state.numberOfServes
                 // Only keep decimal places if number is not a whole number
-                const roundConvertedAmount = convertAmount % 1 === 0 ? convertAmount : convertAmount.toFixed(1)
+                const roundConvertedAmount: string = convertAmount % 1 === 0 ? convertAmount.toString() : convertAmount.toFixed(1)
                 const formattedAmount = e.replace(/((?<=\[)(.*)(?=\]))/g, roundConvertedAmount).replace("[", '').replace("]", '')
                 return formattedAmount
             } else {
