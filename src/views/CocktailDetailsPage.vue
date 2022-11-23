@@ -76,7 +76,6 @@ import { onMounted, reactive, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import store from '@/store';
 import { ICocktailItem } from '@/types';
-import Loading from '@/components/Loading.vue';
 
 const route = useRoute ()
 const router = useRouter()
@@ -111,6 +110,7 @@ const mapIngredients = () => {
 onMounted(async () => {
     await store.dispatch('getCocktailById', route.params.id)
     state.currentCocktail = store.state.currentCocktail
+    state.numberOfServes = store.state.currentCocktail.originalNumberOfServes ? store.state.currentCocktail.originalNumberOfServes : 2
     mapIngredients()
     state.isLoading = false
 })

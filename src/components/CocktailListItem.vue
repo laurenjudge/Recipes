@@ -71,6 +71,7 @@ h2 {
 }
 
 .cocktail-item-text {
+  width: 80%;
   h2 {
     font-size: 1.3rem;
   }

@@ -76,7 +76,8 @@ export default createStore({
             description: doc.data().description, 
             ingredients: doc.data().ingredients, 
             instructions: doc.data().instructions, 
-            tags: doc.data().tags
+            tags: doc.data().tags,
+            originalNumberOfServes: doc.data().originalNumberOfServes
           }
           state.allCocktails.push(data);
         }
