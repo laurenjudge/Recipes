@@ -97,7 +97,8 @@ const mapIngredients = () => {
 
             if (findIngredientAmount) {
                 const convertAmount = parseFloat(findIngredientAmount) * state.numberOfServes
-                const formattedAmount = e.replace(/((?<=\[)(.*)(?=\]))/g, convertAmount).replace("[", '').replace("]", '')
+                const roundConvertedAmount = convertAmount % 1 === 0 ? convertAmount : convertAmount.toFixed(1) // Only keep decimal places if number is not a whole number
+                const formattedAmount = e.replace(/((?<=\[)(.*)(?=\]))/g, roundConvertedAmount).replace("[", '').replace("]", '')
                 return formattedAmount
             } else {
                 return e
