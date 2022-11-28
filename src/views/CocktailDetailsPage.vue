@@ -75,14 +75,14 @@
 import { onMounted, reactive, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import store from '@/store';
-import { ICocktailItem } from '@/types';
+import { IRecipeItem } from '@/types';
 
 const route = useRoute()
 const router = useRouter()
 
 const state = reactive({
     isLoading: true,
-    currentCocktail: {} as ICocktailItem,
+    currentCocktail: {} as IRecipeItem,
     numberOfServes: 2,
     formattedIngredients: [] as string[],
     metricOrImperial: 'metric'

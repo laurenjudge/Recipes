@@ -25,11 +25,11 @@
 
 <script lang="ts" setup>
 import { defineProps, withDefaults } from 'vue'
-import { ICocktailItem } from '@/types';
+import { IRecipeItem } from '@/types';
 
 const props = withDefaults(
   defineProps<{
-    cocktail: ICocktailItem
+    cocktail: IRecipeItem
   }>(),
   {}
 )

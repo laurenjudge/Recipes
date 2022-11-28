@@ -13,7 +13,7 @@ export enum measurementUnit {
     liter = 'liter'
 }
 
-export interface ICocktailItem {
+export interface IRecipeItem {
     name: string
     id: string
     image?: string

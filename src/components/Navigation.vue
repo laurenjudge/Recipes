@@ -3,9 +3,15 @@
       <nav>
         <div class="brading">
           <router-link class="branding-link text--primary" :to="{name: 'home'}">
-           <span class="text--white">Cocktail Recipes</span>
+           <span class="text--white">Recipes</span>
           </router-link>
         </div>
+        <div class="nav-links">
+        <ul>
+          <router-link class="nav-link" :to="{name: 'home'}">Cocktail Recipes</router-link>
+          <router-link class="nav-link" :to="{name: 'food-recipes'}">Food Recipes</router-link>
+        </ul>
+      </div>
       </nav>
     </header>
   </template>
@@ -35,7 +41,7 @@ $tertiary: #425b76;
     display: inline-block;
     border-bottom: 2px solid transparent;
     &:hover, &:active {
-      border-bottom-color:#01c16c;
+      border-bottom-color:#a1b5d8;
       cursor: pointer;
     }
   }

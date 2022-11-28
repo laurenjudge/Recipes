@@ -4,7 +4,7 @@
       <Multiselect
         v-model="multiselectSearchValue"
         mode="tags"
-        placeholder="Search recipes"
+        placeholder="Search cocktail recipes"
         :searchable="true"
         :options="multiselectSearchOptions"
         :createTag="true"

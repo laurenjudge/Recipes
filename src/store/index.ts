@@ -1,19 +1,22 @@
 import { createStore } from 'vuex'
-import { ICocktailItem } from '@/types'
+import { IRecipeItem } from '@/types'
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth, database } from '@/firebase.config'
 import { collection, getDocs, getFirestore, doc, getDoc, query, where } from "firebase/firestore";
 
 export default createStore({
   state: {
-    cocktails: [] as ICocktailItem[],
-    allCocktails: [] as ICocktailItem[],
+    cocktails: [] as IRecipeItem[],
+    allCocktails: [] as IRecipeItem[],
     user: {
       isLoggedIn: false,
       userToken: null
     },
     cocktailsIsLoading: false,
-    currentCocktail: {} as ICocktailItem,
+    currentCocktail: {} as IRecipeItem,
+    foodRecipesAreLoading: false,
+    allFoodRecipes: [] as IRecipeItem[],
+    currentFoodRecipe: {} as IRecipeItem,
   },
   getters: {
     user(state){
@@ -34,6 +37,9 @@ export default createStore({
     },
     SET_CURRENT_COCKTAIL(state, payload) {
       state.currentCocktail = payload
+    },
+    SET_CURRENT_FOOD_RECIPE(state, payload) {
+      state.currentFoodRecipe = payload
     }
   },
   actions: {
@@ -88,7 +94,7 @@ export default createStore({
     async searchCocktailsByTag({ state }, tags: string[]) {
       state.cocktailsIsLoading = true;
   
-      let matchedCocktails = [] as ICocktailItem[]
+      let matchedCocktails = [] as IRecipeItem[]
 
       if (tags.length === 0) {
         state.cocktails = state.allCocktails;
@@ -129,7 +135,41 @@ export default createStore({
     resetCocktailSearchState({state}) {
       //change this once dataset gets bigger
       state.cocktails = state.allCocktails
-    }
+    },
+    async getFoodRecipes({ state }) {
+      state.foodRecipesAreLoading = true;
+      const colRef = collection(database, 'food');
+      const results = await getDocs(colRef);
+
+      results.forEach((doc) => {
+        // Prevent duplicates
+        if(!state.allFoodRecipes.some((recipe) => recipe.id === doc.id)) {
+          const recipeImage = doc.data().image && doc.data().image.match(/[^/]+(jpg|png|gif|jpeg)$/) ? doc.data().image : ''
+          const data = {
+            name: doc.data().name, 
+            id: doc.id, 
+            image: recipeImage,
+            description: doc.data().description, 
+            ingredients: doc.data().ingredients, 
+            instructions: doc.data().instructions, 
+            tags: doc.data().tags,
+            originalNumberOfServes: doc.data().originalNumberOfServes
+          }
+          state.allFoodRecipes.push(data);
+        }
+      });
+      state.foodRecipesAreLoading = false;
+    },
+    async getFoodRecipeByID({ commit }, id) {
+      const db = getFirestore();
+      const docRef = doc(db, "food", id);
+      try {
+        const docSnap = await getDoc(docRef);
+        commit('SET_CURRENT_FOOD_RECIPE', docSnap.data());
+      } catch(error) {
+          console.log(error)
+      }
+    },
   },
   modules: {
   }
