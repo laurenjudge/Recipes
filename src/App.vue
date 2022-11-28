@@ -83,6 +83,7 @@ a {
 .row { display: flex; }
 .text--primary { color: $primary; }
 .text--secondary { color: $secondary; }
+.text--accent { color: $accent; }
 .text--white { color: $white; }
 .text--underline { text-decoration: underline; }
 .card {

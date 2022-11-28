@@ -3,7 +3,7 @@
       <nav>
         <div class="brading">
           <router-link class="branding-link text--primary" :to="{name: 'home'}">
-           <span class="text--white">Recipes</span>
+           <span class="text--white">Recipe</span>book
           </router-link>
         </div>
         <div class="nav-links">
