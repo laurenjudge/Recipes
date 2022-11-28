@@ -22,4 +22,5 @@ export interface IRecipeItem {
     instructions: string[]
     tags?: string[]
     originalNumberOfServes?: number
+    numberOfServings?: string | number
 }

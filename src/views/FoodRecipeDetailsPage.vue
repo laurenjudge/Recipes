@@ -23,10 +23,8 @@
                 <h3 class="text--underline">
                     Ingredients:
                 </h3>
-                <div class="flex items-center dropdown-menu-row">
-                    Usually serves around
-                    {{ state.currentFoodRecipe.originalNumberOfServes }}
-                    meals
+                <div class="flex items-center number-of-servings" v-if="state.currentFoodRecipe.numberOfServings">
+                    {{ state.currentFoodRecipe.numberOfServings }}
                 </div>
                 <ul>
                     <li v-for="ingredient in state.currentFoodRecipe.ingredients" class="ingredients-item">
@@ -72,6 +70,10 @@ onMounted(async () => {
 ul,
 ol {
     padding-left: 1rem;
+}
+
+ul li {
+    margin-bottom: 0.3rem;
 }
 
 .container { background-color: #fff; }
@@ -142,9 +144,8 @@ ol {
 	position: absolute;
 	overflow: hidden;
 }
-
-.dropdown-menu-row { margin: 0.5rem 0; }
 .instructions-item { margin-bottom: 0.8rem;}
+.number-of-servings { margin: 0.3rem 0 0.8rem;}
 @media only screen and (max-width: 600px) {
     .cocktail-content h3 { font-size: 1.2rem;}
     .description { font-size: 0.8rem; }
