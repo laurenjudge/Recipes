@@ -69,7 +69,7 @@
             </div> -->
         </div>
     </div>
-  </template>
+</template>
   
 <script lang="ts" setup>
 import { onMounted, reactive, watch } from 'vue';
@@ -77,7 +77,7 @@ import { useRoute, useRouter } from 'vue-router';
 import store from '@/store';
 import { ICocktailItem } from '@/types';
 
-const route = useRoute ()
+const route = useRoute()
 const router = useRouter()
 
 const state = reactive({
