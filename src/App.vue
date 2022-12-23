@@ -24,7 +24,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-$primary: #42b883;
+$primary: #a1b5d8;
 $secondary: #35495e;
 $tertiary: #425b76;
 $accent: #a1b5d8;
