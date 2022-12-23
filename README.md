@@ -1,4 +1,6 @@
-# cocktail-recipes
+# Recipes
+
+View live: https://cocktail-recipes-a99c1.web.app/?fbclid=IwAR3PHhNu_UmHPw2qjRfOcD6H6yCBbInXzlxNVVmbbHapd7wPB0YLL6kl6xc
 
 ## Project setup
 ```
