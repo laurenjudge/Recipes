@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, withDefaults } from 'vue'
+import { withDefaults } from 'vue'
 import { IRecipeItem } from '@/types';
 
 const props = withDefaults(
